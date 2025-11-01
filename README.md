@@ -26,13 +26,11 @@ pip install -r requirements.txt
 ### 3\. Data and Model Setup
 
 #### Data
-`data/public` is the public dataset. There private dataset will be released on 12/8.
+The public dataset will be loaded from huggingface by default. The use dataset is [theblackcat102/ADL_Final_25W_part1](https://huggingface.co/datasets/theblackcat102/ADL_Final_25W_part1) There private dataset will be released on 12/8.
 `data/toy_data.jsonl` is provided for debugging and testing purposes only and is not involved in the final submission.
 
 #### Models
-All models will be called from the directory `models/` by default.
-Since the models size are huge, please download them from huggingface by yourself and put them into the directory.
-(If you want to place your models somewhere else you can specify the model paths in the arguments of the scripts later.)
+All models will be loaded from huggingface directories by default. You can move the models into `models/` and specify the path to models if you like.
 Here are the models used:
 
 <table border="1" cellpadding="5" cellspacing="0">
@@ -47,7 +45,7 @@ Here are the models used:
     <td rowspan="2">Guard Model</td>
     <td rowspan="2">Decides whether an input prompt is safe or unsafe.</td>
     <td>Public</td>
-    <td><a href="https://huggingface.co/Qwen/Qwen3Guard-Gen-0.6B">Qwen3Guard-Gen-0.6B</a></td>
+    <td><a href="https://huggingface.co/Qwen/Qwen3Guard-Gen-0.6B">Qwen/Qwen3Guard-Gen-0.6B</a></td>
   </tr>
   <tr>
     <td>Private</td>
@@ -59,7 +57,7 @@ Here are the models used:
     <td>Chat Model</td>
     <td>Model for general-purpose instruction following and conversation</td>
     <td>Public</td>
-    <td><a href="https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct">Llama-3.2-3B-Instruct</a></td>
+    <td><a href="https://huggingface.co/unsloth/Llama-3.2-3B-Instruct">unsloth/Llama-3.2-3B-Instruct</a></td>
   </tr>
 
   <!-- Usefulness Model -->
@@ -67,7 +65,7 @@ Here are the models used:
     <td rowspan="2">Usefulness Judge Model</td>
     <td rowspan="2">Checks whether the output of the chat model aligns with the intention of the original malicious prompt.</td>
     <td>Public</td>
-    <td><a href="https://huggingface.co/theblackcat102/Toxic-usefulness-Qwen-1.7B-beta">Toxic-usefulness-Qwen-1.7B-beta</a></td>
+    <td><a href="https://huggingface.co/theblackcat102/Toxic-usefulness-Qwen-1.7B-beta">theblackcat102/Toxic-usefulness-Qwen-1.7B-beta</a></td>
   </tr>
   <tr>
     <td>Private</td>
@@ -112,7 +110,7 @@ python run_inference.py --dataset-path data/public --algorithm evaluate_rewrite
 **Arguments:**
 |Argument|Desrciption|
 |---|---|
-|`--dataset-path`|Path to your dataset. Can be `data/public`, `data/private`, or a `.jsonl` file (e.g. `data/toy_data.jsonl`).|
+|`--dataset-path`|Path to your dataset. Can be a HuggingFace dataset or a `.jsonl` file.|
 |`--algorithm`|The function name (string) in `algorithms.py` to test. Defaults to `evaluate_rewrite`. The algorithm name must be a function name implemented in `algorithms.py`.|
 
 **Output:**
