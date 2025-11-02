@@ -112,13 +112,13 @@ This script loads a dataset, runs your selected algorithm, and saves a JSONL fil
 ### Basic Command
 
 ```bash
-python run_inference.py --dataset-path theblackcat102/ADL_Final_25W_part1 --algorithm evaluate_rewrite
+python run_inference.py --dataset theblackcat102/ADL_Final_25W_part1 --algorithm evaluate_rewrite
 ```
 
 **Arguments:**
 |Argument|Desrciption|
 |---|---|
-|`--dataset-path`|Path to your dataset. Can be a HuggingFace dataset or a `.jsonl` file.|
+|`--dataset`|Path to your dataset. Can be a HuggingFace dataset or a `.jsonl` file.|
 |`--algorithm`|The function name (string) in `algorithms.py` to test. Defaults to `evaluate_rewrite`. The algorithm name must be a function name implemented in `algorithms.py`.|
 
 **Output:**
@@ -149,9 +149,9 @@ Here are descriptions of the arguments:
 |---|---|
 |`--dataset-path`|Path to the same dataset used during inference.|
 |`--algorithm`|Algorithm name matching the inference step (used to locate results).|
-|`--safety-model`|Path or Hugging Face ID for the safety judge model. Default: `models/Qwen3Guard-Gen-0.6B`|
-|`--usefulness-model`|Path or Hugging Face ID for the usefulness judge. Default: `models/Toxic-usefulness-Qwen-1.7B-beta`|
-|`--chat-model`|Path or Hugging Face ID for the model used for generating chat outputs. Default: `models/Llama-3.2-3B-Instruct`|
+|`--guard-model`|Path or Hugging Face ID for the safety judge model. Default: `Qwen/Qwen3Guard-Gen-0.6B`|
+|`--usefulness-model`|Path or Hugging Face ID for the usefulness judge. Default: `theblackcat102/Toxic-usefulness-Qwen-1.7B-beta`|
+|`--chat-model`|Path or Hugging Face ID for the model used for generating chat outputs. Default: `unsloth/Llama-3.2-3B-Instruct`|
 
 **Outputs:**
 - `results/{algorithm}/raw_{dataset}.jsonl`: Detailed evaluation per sample (this is to help you make observations to further improve your algorithms).
@@ -162,8 +162,8 @@ Here are descriptions of the arguments:
 python run_eval.py \
   --dataset-path data/toy_data.jsonl \
   --algorithm my_custom_algorithm \
-  --safety-model "meta-llama/Llama-Guard-3-8B" \
-  --usefulness-model "theblackcat102/Toxic-usefulness-Qwen-1.7B-beta"
+  --guard-model meta-llama/Llama-Guard-3-8B \
+  --usefulness-model theblackcat102/Toxic-usefulness-Qwen-1.7B-beta
 ```
 
 ---
