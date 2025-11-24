@@ -5,13 +5,14 @@ from src.eval import judge, initialize_models
 from typing import List, Dict, Any
 from datasets import load_dataset, Dataset
 import sys
+from tqdm import tqdm
 
 # --- Configuration ---
 DEFAULT_DATASET_PATH = "theblackcat102/ADL_Final_25W_part1_with_cost"
 DEFAULT_SAFETY_MODEL = "Qwen/Qwen3Guard-Gen-0.6B"
 DEFAULT_USEFULNESS_MODEL = "theblackcat102/Qwen3-1.7B-Usefulness-Judge"
 DEFAULT_CHAT_MODEL = "unsloth/Llama-3.2-3B-Instruct"
-DEFAULT_ALGORITHM_NAME = "evaluate_rewrite"
+DEFAULT_ALGORITHM_NAME = "algorithm_art"  # "evaluate_rewrite"
 
 def _get_common_args():
     """Parses command-line arguments, same as inference script."""
@@ -255,7 +256,7 @@ def main():
     print(f"Resuming processing (skipping {len(processed_ids)} items already completed).")
     
     # 4. Main Loop
-    for index, record in enumerate(ds):
+    for index, record in tqdm(enumerate(ds), total=len(ds)):
         # Skip already processed samples
         rec_id = record.get('id', index)
         if rec_id in processed_ids:

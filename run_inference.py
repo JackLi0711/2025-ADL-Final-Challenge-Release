@@ -7,7 +7,7 @@ from datasets import load_dataset, Dataset
 import sys
 
 # --- Configuration ---
-DEFAULT_ALGORITHM_NAME = PromptSafetyAgent.MANDATORY_ENTRY_POINT
+DEFAULT_ALGORITHM_NAME = "algorithm_art"  # PromptSafetyAgent.MANDATORY_ENTRY_POINT
 DEFAULT_DATASET_PATH = "theblackcat102/ADL_Final_25W_part1_with_cost"
 
 def _get_common_args():
