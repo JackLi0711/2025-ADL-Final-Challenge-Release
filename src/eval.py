@@ -3,6 +3,7 @@ from typing import Dict, Optional
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import re
 
+
 # Global variables
 # Llama Guard
 guard_tokenizer = None
@@ -81,7 +82,7 @@ def get_safety_score(rewritten_prompt: str) -> float:
     output = guard_model.generate(
         input_ids=input_ids, 
         max_new_tokens=512, # Keep this small, as the decision is very short
-        pad_token_id=0,
+        pad_token_id=guard_tokenizer.pad_token_id if guard_tokenizer.pad_token_id is not None else guard_tokenizer.eos_token_id,
         do_sample=False
     )
     

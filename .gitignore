@@ -1,5 +1,11 @@
-**/__pycache__/
-data/ADL_Final_part*/
+data/
+models/
+results/
+
+.vscode/
+
+*__pycache__/
+
 models/*
 !models/.gitkeep
 results/*

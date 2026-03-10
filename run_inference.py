@@ -4,10 +4,12 @@ import json
 from src.agent import PromptSafetyAgent
 from typing import List, Dict, Any
 from datasets import load_dataset, Dataset
+from tqdm import tqdm
 import sys
 
+
 # --- Configuration ---
-DEFAULT_ALGORITHM_NAME = "algorithm_art"  # PromptSafetyAgent.MANDATORY_ENTRY_POINT
+DEFAULT_ALGORITHM_NAME = "algorithm_asr"  # PromptSafetyAgent.MANDATORY_ENTRY_POINT
 DEFAULT_DATASET_PATH = "theblackcat102/ADL_Final_25W_part1_with_cost"
 
 def _get_common_args():
@@ -120,7 +122,7 @@ def main():
     try:
         # Use 'a' (append) mode for resilient, incremental writing
         with open(INFERENCE_FILE, 'a', encoding='utf-8') as f:
-            for index, record in enumerate(ds):
+            for index, record in tqdm(enumerate(ds), total=total, initial=start_index, desc="Rewriting Prompts"):
                 # Skip already processed samples
                 if index < start_index:
                     continue
@@ -146,3 +148,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+"""
+python run_inference.py \
+  --dataset data/prompts_ADL_Final_25W_part1_with_cost.jsonl \
+  --algorithm evaluate_rewrite 
+"""
